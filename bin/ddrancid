@@ -39,7 +39,7 @@
 ## CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ## ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 ## POSSIBILITY OF SUCH DAMAGE.
-# 
+#
 # Rancid script to deal with DD-WRT access-points
 #
 #  RANCID - Really Awesome New Cisco confIg Differ
@@ -213,7 +213,7 @@ sub ShowKernelVersion {
     if (/^Linux /) {
         ProcessHistory("COMMENTS", "", "", "#Kernel: $_" );
     }
-        
+
     return(0);
 }
 }
@@ -223,11 +223,11 @@ sub ShowNvram {
     print STDERR "    In ShowNvram: $_" if ($debug);
     my ($in_multiline) = 0;
     my ($nvkey, $nvval);
-    
+
     while (<INPUT>) {
-        
+
         if (/^$prompt/) { last; }
-        
+
         if (! /=/) {
             if (! /^$/) {
                 $nvval .= $_;
@@ -237,7 +237,7 @@ sub ShowNvram {
         else {
             ($nvkey, $nvval) = split(/=/, $_, 2);
         }
-        
+
         if ($nvkey eq "http_passwd" && $filter_pwds >= 1) {
             ProcessHistory("","","","# $nvkey=<removed>\n");
             next;
@@ -249,10 +249,10 @@ sub ShowNvram {
         if ($is_skip{$nvkey}) {
             next;
         }
-        
+
         ProcessHistory("","","","nvram set $nvkey=$nvval");
     }
-    
+
     return(0);
 }
 
@@ -365,7 +365,7 @@ TOP: while(<INPUT>) {
 	print STDERR $_ if ($debug);
 };
 print STDOUT "Done $logincmd: $_\n" if ($debug);
-ProcessHistory("","","","");
+ProcessHistory("","","","\n");
 
 # Cleanup
 close(INPUT);
